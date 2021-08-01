@@ -12,8 +12,8 @@ public class EngineSystem : SystemBase
             (ref Velocity moveVelocity,
             in Engine engine, in Translation translation, in Rotation rotation) =>
             {
-                moveVelocity.LinearValue += engine.LinerAcceleration * engine.LinearPower * rotation.Value.Direction2D();
-                moveVelocity.AngularValue  = engine.RotationSpeed * engine.RotationPower;
+                moveVelocity.LinearValue += dt * engine.LinerAcceleration * engine.LinearPower * rotation.Value.Direction2D();
+                moveVelocity.AngularValue = engine.RotationSpeed * engine.RotationPower;
             }).ScheduleParallel();
     }
 }

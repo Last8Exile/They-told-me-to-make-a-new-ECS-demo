@@ -7,6 +7,8 @@ public class UnitSpawnerSystem : SystemBase
 {
     private EndFixedStepSimulationEntityCommandBufferSystem ecbSystem;
 
+    public static readonly bool InitRandom = false;
+
     protected override void OnCreate()
     {
         ecbSystem = World.GetExistingSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
@@ -43,6 +45,9 @@ public class UnitSpawnerSystem : SystemBase
                     var randomVelocity = randomData.Random.NextFloat2(spawner.VelocityBase - spawner.VelocitySpread, spawner.VelocityBase + spawner.VelocitySpread);
                     var spawnVelocity = math.rotate(rotation.Value, new float3(randomVelocity, 0)).xy;
                     ecb.AddComponent(entityInQueryIndex, spawnedEntity, new Velocity { LinearValue = spawnVelocity });
+
+                    if (InitRandom)
+                        ecb.SetComponent(entityInQueryIndex, spawnedEntity, new RandomData { Random = Random.CreateFromIndex(randomData.Random.NextUInt()) });
                 }
 
                 spawner.Delay = spawner.BurstInterval;

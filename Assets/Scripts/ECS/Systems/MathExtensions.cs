@@ -28,4 +28,9 @@ public static class MathExtensions
     {
         return math.mul(quaternion, quaternion.AxisAngle(new float3(0, 0, 1), angle));
     }
+
+    public static float Clamp01(float value)
+    {
+        return math.clamp(value, 0, 1);
+    }
 }

@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 6657046563791685293}
   - component: {fileID: 120957548505796961}
   - component: {fileID: 8355138595340485095}
-  - component: {fileID: 6662749974742944785}
   - component: {fileID: 7348500403384814331}
+  - component: {fileID: 6662749974742944785}
+  - component: {fileID: -8097716117405779576}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -122,10 +123,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fc5fc2f691db048a71e0a4dec87d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LinerAcceleration: 2
-  RotationSpeed: 3.14
+  LinerAcceleration: 10
+  RotationSpeed: 3.142857
   LinearPower: 0
   RotationPower: 0
+--- !u!114 &7348500403384814331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5940998269407602515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19dfe7c286d282543b311fbc1fc5d2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipState: 0
+  CruiseSpeed: 30
+  Coundown: 1
+  TargetPosition:
+    x: 0
+    y: 0
+  TargetEntity: {fileID: 0}
 --- !u!114 &6662749974742944785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +162,7 @@ MonoBehaviour:
     x: 0
     y: 0
   AngularValue: 0
---- !u!114 &7348500403384814331
+--- !u!114 &-8097716117405779576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,14 +171,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5940998269407602515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19dfe7c286d282543b311fbc1fc5d2b1, type: 3}
+  m_Script: {fileID: 11500000, guid: b3d9e533feb83f743af8c7d571624c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipState: 0
-  CruiseSpeedSQ: 10
-  ReachDistanceSQ: 1
-  Coundown: 1
-  TargetPosition:
-    x: 0
-    y: 0
-  TargetEntity: {fileID: 0}
+  MaxHealth: 100
+  CurrentHealth: 100

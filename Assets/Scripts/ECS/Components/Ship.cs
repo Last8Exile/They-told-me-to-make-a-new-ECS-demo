@@ -10,8 +10,7 @@ using UnityEngine;
 public struct Ship : IComponentData
 {
     public ShipState ShipState;
-    public float CruiseSpeedSQ;
-    public float ReachDistanceSQ;
+    public float CruiseSpeed;
 
     [Header("State")]
     public float Coundown;
