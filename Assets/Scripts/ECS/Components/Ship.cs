@@ -13,9 +13,9 @@ public struct Ship : IComponentData
     public float CruiseSpeed;
 
     [Header("State")]
-    public float Coundown;
-    public float2 TargetPosition;
-    public Entity TargetEntity;
+    public float State_Coundown;
+    public float2 State_TargetPosition;
+    public Entity State_TargetEntity;
 }
 
 public enum ShipState

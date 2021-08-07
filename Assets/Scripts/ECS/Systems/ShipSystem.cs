@@ -2,8 +2,7 @@
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-public class ShipSystem : SystemBase
+public class ShipSystem : FixedSystem
 {
     public static readonly float2 FLY_AREA_EXTENTS = new float2(50f, 30f);
     public static readonly float STOP_SPEED_SQ = 1f;
@@ -31,8 +30,8 @@ public class ShipSystem : SystemBase
                             MoveToRandomPosition(ref ship, ref randomData, FLY_AREA_EXTENTS, 5f);
                             return;
                         }
-                        engine.LinearPower = 0;
-                        engine.RotationPower = 0;
+                        engine.State_LinearPower = 0;
+                        engine.State_RotationPower = 0;
                         break;
                     }
                     case ShipState.Stop:
@@ -59,7 +58,7 @@ public class ShipSystem : SystemBase
                             Stop(ref ship, 2f);
                             return;
                         }
-                        var targetDirection = ship.TargetPosition - translation.Value.xy;
+                        var targetDirection = ship.State_TargetPosition - translation.Value.xy;
                         var distanceSQ = math.lengthsq(targetDirection);
                         if (distanceSQ < REACH_DISTANCE_SQ)
                         {
@@ -72,7 +71,7 @@ public class ShipSystem : SystemBase
                         if (thrustLengthSQ < EQUAL_SPEED_SQ)
                         {
                             Rotate(ref engine, in rotation, targetDirection);
-                            engine.LinearPower = 0;
+                            engine.State_LinearPower = 0;
                         }
                         else
                         {
@@ -108,26 +107,26 @@ public class ShipSystem : SystemBase
 
     private static bool CooldownComplete(ref Ship ship, float dt)
     {
-        ship.Coundown -= dt;
-        return ship.Coundown <= 0;
+        ship.State_Coundown -= dt;
+        return ship.State_Coundown <= 0;
     }
 
     private static void Idle(ref Ship ship, float length = 1)
     {
         ship.ShipState = ShipState.Idle;
-        ship.Coundown = length;
+        ship.State_Coundown = length;
     }
 
     private static void Stop(ref Ship ship, float length = float.MaxValue)
     {
         ship.ShipState = ShipState.Stop;
-        ship.Coundown = length;
+        ship.State_Coundown = length;
     }
 
     private static void MoveToRandomPosition(ref Ship ship, ref RandomData randomData, float2 flyAreaExtents, float length = float.MaxValue)
     {
         ship.ShipState = ShipState.MoveToPosition;
-        ship.TargetPosition = randomData.Random.NextFloat2(-flyAreaExtents, flyAreaExtents);
-        ship.Coundown = length;
+        ship.State_TargetPosition = randomData.Random.NextFloat2(-flyAreaExtents, flyAreaExtents);
+        ship.State_Coundown = length;
     }
 }

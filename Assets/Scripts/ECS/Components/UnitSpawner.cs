@@ -21,6 +21,6 @@ public struct UnitSpawner : IComponentData
     public float BurstInterval;
 
     [Header("State")]
-    public int Spawned;
-    public float Delay;
+    public int State_SpawnedCount;
+    public float State_Countdown;
 }

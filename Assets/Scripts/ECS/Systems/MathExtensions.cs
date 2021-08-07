@@ -29,6 +29,11 @@ public static class MathExtensions
         return math.mul(quaternion, quaternion.AxisAngle(new float3(0, 0, 1), angle));
     }
 
+    public static float2 Rotate2D(this float2 vector, quaternion quaternion)
+    {
+        return math.rotate(quaternion, new float3(vector, 0)).xy;
+    }
+
     public static float Clamp01(float value)
     {
         return math.clamp(value, 0, 1);

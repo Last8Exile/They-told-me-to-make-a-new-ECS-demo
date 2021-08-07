@@ -11,5 +11,5 @@ public struct Health : IComponentData
     public float MaxHealth;
 
     [Header("State")]
-    public float CurrentHealth;
+    public float State_Health;
 }

@@ -1,8 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-public class MoveSystem : SystemBase
+public class MoveSystem : FixedSystem
 {
     protected override void OnUpdate()
     {

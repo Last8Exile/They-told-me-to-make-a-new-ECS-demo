@@ -1,9 +1,7 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-public class EngineSystem : SystemBase
+public class EngineSystem : FixedSystem
 {
     protected override void OnUpdate()
     {
@@ -12,8 +10,8 @@ public class EngineSystem : SystemBase
             (ref Velocity moveVelocity,
             in Engine engine, in Translation translation, in Rotation rotation) =>
             {
-                moveVelocity.LinearValue += dt * engine.LinerAcceleration * engine.LinearPower * rotation.Value.Direction2D();
-                moveVelocity.AngularValue = engine.RotationSpeed * engine.RotationPower;
+                moveVelocity.LinearValue += dt * engine.LinerAcceleration * engine.State_LinearPower * rotation.Value.Direction2D();
+                moveVelocity.AngularValue = engine.RotationSpeed * engine.State_RotationPower;
             }).ScheduleParallel();
     }
 }
