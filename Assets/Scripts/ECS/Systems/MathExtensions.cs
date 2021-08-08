@@ -38,4 +38,9 @@ public static class MathExtensions
     {
         return math.clamp(value, 0, 1);
     }
+
+    public static int Wrap(int value, int wrap)
+    {
+        return value % wrap;
+    }
 }

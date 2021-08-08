@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1716141045331511004}
   - component: {fileID: 1716141045331511005}
   - component: {fileID: 1716141045331511003}
-  - component: {fileID: 9113952755202768588}
   - component: {fileID: 8094728106700662257}
+  - component: {fileID: 9113952755202768588}
   - component: {fileID: 395443533513076203}
   m_Layer: 0
   m_Name: Spawner
@@ -75,18 +75,6 @@ MonoBehaviour:
   BurstInterval: 0.1
   State_SpawnedCount: 0
   State_Countdown: 0
---- !u!114 &9113952755202768588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716141045331511002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 900b74cd86176e147b7d9829be0ddafb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8094728106700662257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +88,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 0
+--- !u!114 &9113952755202768588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716141045331511002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 900b74cd86176e147b7d9829be0ddafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &395443533513076203
 MonoBehaviour:
   m_ObjectHideFlags: 0

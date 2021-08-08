@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7990266795814060230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613837645652375607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6421548084dc04845b1ef9d304cbe98d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MuzzleCount: 3
+  MuzzlePosSeparation: 0.4
+  MuzzleAngleSeparation: 0
+  SequentialFire: 0
+  State_MuzzleIndex: 0
 --- !u!1001 &1329985309935345508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27,6 +44,22 @@ PrefabInstance:
       propertyPath: Color.g
       value: 0.49803922
       objectReference: {fileID: 0}
+    - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+      propertyPath: FireInterval
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+      propertyPath: MuzzleOffet.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+      propertyPath: InitialVelocity
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+      propertyPath: ProjectilePrefab
+      value: 
+      objectReference: {fileID: 6146972030896608968, guid: 83869055c21b06c469ade2d4849ca4ba, type: 3}
     - target: {fileID: 1859374606854958165, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: m_Capsule.Axis
       value: 0
@@ -105,3 +138,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+--- !u!1 &4613837645652375607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5940998269407602515, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+  m_PrefabInstance: {fileID: 1329985309935345508}
+  m_PrefabAsset: {fileID: 0}

@@ -43,7 +43,7 @@ public class UnitSpawnerSystem : FixedEcbSystem
                 }
 
                 spawner.State_Countdown = spawner.BurstInterval;
-                spawner.State_SpawnedCount += spawnCount;
+                spawner.State_SpawnedCount += (ushort)spawnCount;
 
                 if (spawner.State_SpawnedCount >= spawner.SpawnCount)
                 {

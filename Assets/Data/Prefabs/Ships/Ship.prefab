@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5940998269407602542}
-  - component: {fileID: -8097716117405779576}
   - component: {fileID: 7348500403384814331}
-  - component: {fileID: 1625570444191528664}
+  - component: {fileID: -8097716117405779576}
   - component: {fileID: 8355138595340485095}
+  - component: {fileID: 1625570444191528664}
   - component: {fileID: 6662749974742944785}
   - component: {fileID: 9041962754050903595}
   - component: {fileID: 120957548505796961}
@@ -39,20 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8097716117405779576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5940998269407602515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d9e533feb83f743af8c7d571624c5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 100
-  State_Health: 100
 --- !u!114 &7348500403384814331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +58,7 @@ MonoBehaviour:
     x: 0
     y: 0
   State_TargetEntity: {fileID: 0}
---- !u!114 &1625570444191528664
+--- !u!114 &-8097716117405779576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -81,17 +67,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5940998269407602515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f981956aef8cb3429b8048786572a62, type: 3}
+  m_Script: {fileID: 11500000, guid: b3d9e533feb83f743af8c7d571624c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireInterval: 3
-  MuzzleOffet:
-    x: 0
-    y: 0
-  InitialVelocity: 50
-  ProjectilePrefab: {fileID: 822960327798931143, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
-  State_AllowedToFire: 1
-  State_Countdown: 5
+  MaxHealth: 100
+  State_Health: 100
 --- !u!114 &8355138595340485095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +88,26 @@ MonoBehaviour:
   RotationSpeed: 3.142857
   State_LinearPower: 0
   State_RotationPower: 0
+--- !u!114 &1625570444191528664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5940998269407602515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f981956aef8cb3429b8048786572a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireInterval: 5
+  MuzzleOffet:
+    x: 1.6
+    y: 0
+  InitialVelocity: 50
+  ProjectilePrefab: {fileID: 822960327798931143, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
+  State_AllowedToFire: 1
+  State_Countdown: 5
 --- !u!114 &6662749974742944785
 MonoBehaviour:
   m_ObjectHideFlags: 0

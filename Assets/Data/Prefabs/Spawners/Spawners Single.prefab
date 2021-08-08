@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6472954342996448093}
   m_Layer: 0
-  m_Name: Spawners
+  m_Name: Spawners Single
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,33 +54,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner Player Fighter 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1716141045331511002, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: Prefab
       value: 
       objectReference: {fileID: 4597646671800081296, guid: deccea9a0360d114d8397d82b5d2d74f, type: 3}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstSize
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.y
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.x
@@ -88,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_RootOrder
@@ -100,7 +104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -117,6 +121,10 @@ PrefabInstance:
     - target: {fileID: 1716141045331511006, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8094728106700662257, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: Id
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
@@ -148,17 +156,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner Enemy Fighter 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1716141045331511002, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: Prefab
       value: 
       objectReference: {fileID: 4613837645652375607, guid: fb2ffddc464c2b14dbe87d4c95cc6c18, type: 3}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstSize
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 150
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -166,11 +178,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.y
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityMax.x
@@ -190,11 +202,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: VelocitySpread.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_RootOrder
@@ -328,11 +344,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: State_Countdown
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.x
@@ -424,41 +440,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner Player Fighter 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1716141045331511002, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: Prefab
       value: 
       objectReference: {fileID: 3453087916058700302, guid: ae022be328eae7641abcfb743e472be5, type: 3}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstSize
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.x
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_RootOrder
@@ -467,6 +487,10 @@ PrefabInstance:
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_LocalPosition.x
       value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -20.9
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -483,6 +507,10 @@ PrefabInstance:
     - target: {fileID: 1716141045331511006, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8094728106700662257, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: Id
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
@@ -514,17 +542,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner Enemy Fighter 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1716141045331511002, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: Prefab
       value: 
       objectReference: {fileID: 4613837645652375607, guid: a59b3ef49e1705445876ebcf3b56bc44, type: 3}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstSize
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 200
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -532,11 +564,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityMax.x
@@ -556,7 +588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.y
@@ -564,11 +596,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.y
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: m_RootOrder

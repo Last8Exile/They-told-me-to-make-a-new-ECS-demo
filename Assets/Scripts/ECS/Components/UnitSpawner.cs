@@ -15,12 +15,13 @@ public struct UnitSpawner : IComponentData
     public float2 VelocityBase;
     public float2 VelocitySpread;
 
-    public int SpawnCount;
+    public ushort SpawnCount;
 
-    public int BurstSize;
+    [Min(1)]
+    public ushort BurstSize;
     public float BurstInterval;
 
     [Header("State")]
-    public int State_SpawnedCount;
+    public ushort State_SpawnedCount;
     public float State_Countdown;
 }

@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &6058345772928831170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597646671800081296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f73b507d8c8334b8cb9d7baaaeba24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanInterrupt: 0
+  BurstProjectileCount: 10
+  BurstInterval: 0.04
+  State_BurstFiredProjectiles: 0
 --- !u!1001 &7907394310229114051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27,6 +43,14 @@ PrefabInstance:
       propertyPath: Color.r
       value: 0.49803922
       objectReference: {fileID: 0}
+    - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+      propertyPath: MuzzleOffet.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+      propertyPath: ProjectilePrefab
+      value: 
+      objectReference: {fileID: 6146972030896608968, guid: 954ee0b0b54638c488d8bdf81c2da935, type: 3}
     - target: {fileID: 1859374606854958165, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: m_Capsule.Axis
       value: 0
@@ -113,3 +137,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+--- !u!1 &4597646671800081296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5940998269407602515, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
+  m_PrefabInstance: {fileID: 7907394310229114051}
+  m_PrefabAsset: {fileID: 0}

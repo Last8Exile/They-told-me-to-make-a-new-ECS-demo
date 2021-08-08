@@ -10,7 +10,9 @@ using UnityEngine;
 public struct Weapon : IComponentData
 {
     public float FireInterval;
+
     public float2 MuzzleOffet;
+
     public float InitialVelocity;
     public Entity ProjectilePrefab;
 
