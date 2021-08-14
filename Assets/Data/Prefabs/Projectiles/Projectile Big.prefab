@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Capsule.Axis
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_SphereRadius
@@ -41,7 +41,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Cylinder.Axis
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Capsule.Height
@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Capsule.Radius
-      value: 0.50189185
+      value: 0.82242465
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Cylinder.Height
@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Cylinder.Radius
-      value: 0.50189185
+      value: 0.82242465
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_PrimitiveSize.x
@@ -65,11 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_PrimitiveSize.y
-      value: 1.0037837
+      value: 1.6448493
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
-      propertyPath: m_PrimitiveCenter.x
-      value: -0.015
+      propertyPath: m_PrimitiveSize.z
+      value: 1.6448493
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_ConvexHullGenerationParameters.m_BevelRadius

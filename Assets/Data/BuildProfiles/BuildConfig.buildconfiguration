@@ -10,14 +10,19 @@
         {
             "$type": "Unity.Build.Common.SceneList, Unity.Build",
             "$version": 1,
-            "BuildCurrentScene": true,
-            "SceneInfos": []
+            "BuildCurrentScene": false,
+            "SceneInfos": [
+                {
+                    "Scene": "GlobalObjectId_V1-1-2cda990e2423bbf4892e6590ba056729-102900000-0",
+                    "AutoLoad": false
+                }
+            ]
         },
         {
             "$type": "Unity.Build.Classic.ClassicBuildProfile, Unity.Build.Classic",
             "$version": 1,
             "Platform": "win",
-            "Configuration": 2
+            "Configuration": 1
         }
     ]
 }

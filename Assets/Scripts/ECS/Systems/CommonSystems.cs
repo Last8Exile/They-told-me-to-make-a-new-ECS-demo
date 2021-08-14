@@ -12,19 +12,18 @@ public abstract class FixedEcbSystem : FixedSystem
 
     protected override void OnCreate()
     {
-        _ecbSystem = World.GetExistingSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
+        _ecbSystem = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
     }
 }
 
-[UpdateBefore(typeof(EndFramePhysicsSystem))]
-[UpdateAfter(typeof(StepPhysicsWorld))]
+[UpdateAfter(typeof(EndFramePhysicsSystem))]
 public abstract class PhysicsSystem : FixedSystem
 {
-    protected BuildPhysicsWorld _physicsWorldSystem;
+    protected BuildPhysicsWorld _buildPhysicsWorld;
 
     protected override void OnCreate()
     {
-        _physicsWorldSystem = World.GetExistingSystem<BuildPhysicsWorld>();
+        _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
     }
 }
 

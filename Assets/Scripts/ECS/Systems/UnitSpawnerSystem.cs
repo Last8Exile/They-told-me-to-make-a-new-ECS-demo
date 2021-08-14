@@ -46,10 +46,7 @@ public class UnitSpawnerSystem : FixedEcbSystem
                 spawner.State_SpawnedCount += (ushort)spawnCount;
 
                 if (spawner.State_SpawnedCount >= spawner.SpawnCount)
-                {
-                    ecb.DestroyEntity(entityInQueryIndex, spawner.Prefab);
                     ecb.DestroyEntity(entityInQueryIndex, entity);
-                }
             }).ScheduleParallel();
         _ecbSystem.AddJobHandleForProducer(Dependency);
     }

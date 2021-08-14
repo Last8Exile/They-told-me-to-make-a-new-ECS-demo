@@ -14,7 +14,7 @@ public class SpawnMenu : MonoBehaviour
 
         async UniTaskVoid Routine()
         {
-            var p = Instantiate(Prefab);
+            var p = Instantiate(Prefab, transform.position, transform.rotation);
             await UniTask.Yield();
             Destroy(p);
         }

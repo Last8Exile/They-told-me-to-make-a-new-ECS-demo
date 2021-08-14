@@ -37,35 +37,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_SphereRadius
-      value: 0.5
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Cylinder.Axis
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Capsule.Height
-      value: 1
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Capsule.Radius
-      value: 0.4094784
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Cylinder.Height
-      value: 0.42740458
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_Cylinder.Radius
-      value: 0.5
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_PrimitiveSize.x
-      value: 0.8189568
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_PrimitiveSize.y
-      value: 0.42740458
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
+      propertyPath: m_PrimitiveSize.z
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4735274231852593319, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
       propertyPath: m_ConvexHullGenerationParameters.m_BevelRadius
