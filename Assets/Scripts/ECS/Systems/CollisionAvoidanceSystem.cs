@@ -7,15 +7,15 @@ using Unity.Transforms;
 
 public class CollisionAvoidanceSystem : PhysicsSystem
 {
-    private static readonly float _AVOIDANCE_POWER = 5;
-    private static readonly float _AVOIDANCE_BASE = 3;
-    private static readonly float _MIN_DISTANCE = 2f;
+    private static readonly float _AVOIDANCE_POWER = 20;
+    private static readonly float _AVOIDANCE_BASE = 2;
+    private static readonly float _MIN_DISTANCE = 1f;
 
     private static readonly float _MAX_DISTANCE = 10;
-    private static readonly int _MAX_HITS = 16;
+    private static readonly int _MAX_HITS = 8;
     private static readonly CollisionFilter _FILTER = new CollisionFilter
     {
-        BelongsTo = (uint)CollisionLayer.Projectile,
+        BelongsTo = (uint)CollisionLayer.Query,
         CollidesWith = (uint)CollisionLayer.Ship,
     };
 

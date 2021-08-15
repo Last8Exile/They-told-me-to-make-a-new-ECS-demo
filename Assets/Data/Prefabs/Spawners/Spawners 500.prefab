@@ -454,11 +454,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 4613837645652375607, guid: a59b3ef49e1705445876ebcf3b56bc44, type: 3}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstSize
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
@@ -552,15 +552,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.y
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityMax.x
@@ -580,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.y
@@ -588,7 +588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.y

@@ -46,7 +46,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 75c1707dadaf17449bab8526d10a1b3c, type: 3}
     - {fileID: 102900000, guid: cf7ae3403df22694ba42d0c15d562c12, type: 3}
     - {fileID: 102900000, guid: 097f91ee4b3d1a647915d12209cf0e54, type: 3}
-    totalSpriteSurfaceArea: 37728
+    totalSpriteSurfaceArea: 37888
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -55,6 +55,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cf80678265fc59e41b1a4930a4ed336c, type: 3}
   - {fileID: 21300000, guid: 8bcf3eb353f12fb41a68ba42ad726b5f, type: 3}
   - {fileID: 21300000, guid: 5b7631f35f670514387818c9494037ec, type: 3}
+  - {fileID: 21300000, guid: 462c5e8483a7cc048b2d26abdfaf2a6a, type: 3}
   - {fileID: 21300000, guid: 15340ee560556cb48b5608ef4a7c17df, type: 3}
   - {fileID: 21300000, guid: 7c7c21669c1a47c40959c2640215217d, type: 3}
   - {fileID: 21300000, guid: ea6721d8ac39864449acaca1211e0f55, type: 3}
@@ -66,6 +67,7 @@ SpriteAtlas:
   - Light2 Small
   - Arrow
   - Light2 Big
+  - Light2 Tiny 1
   - Fighter 1
   - Fighter 4
   - Corvette 1

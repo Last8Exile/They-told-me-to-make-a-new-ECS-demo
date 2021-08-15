@@ -23,4 +23,5 @@ public enum ShipState
     Idle = 0,
     Stop = 1,
     MoveToPosition = 10,
+    FiringAtTarget = 20,
 }

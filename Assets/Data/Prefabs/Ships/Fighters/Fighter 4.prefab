@@ -75,7 +75,7 @@ PrefabInstance:
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: ProjectilePrefab
       value: 
-      objectReference: {fileID: 6146972030896608968, guid: 83869055c21b06c469ade2d4849ca4ba, type: 3}
+      objectReference: {fileID: 6146972030896608968, guid: 19347743213578e4ba20f3d438ca2622, type: 3}
     - target: {fileID: 1859374606854958165, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: m_SphereRadius
       value: 1.8483307

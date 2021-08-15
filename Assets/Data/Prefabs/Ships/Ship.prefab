@@ -106,7 +106,7 @@ MonoBehaviour:
     y: 0
   InitialVelocity: 50
   ProjectilePrefab: {fileID: 822960327798931143, guid: 034d9618fab6c11449c9277e9d952415, type: 3}
-  State_AllowedToFire: 0
+  State_AllowedToFire: 1
   State_Countdown: 5
 --- !u!114 &6662749974742944785
 MonoBehaviour:
@@ -263,9 +263,9 @@ MonoBehaviour:
       m_Value:
         Category00: 0
         Category01: 0
-        Category02: 0
+        Category02: 1
         Category03: 0
-        Category04: 1
+        Category04: 0
         Category05: 1
         Category06: 0
         Category07: 0

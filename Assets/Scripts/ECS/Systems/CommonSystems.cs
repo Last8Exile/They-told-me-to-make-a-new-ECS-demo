@@ -12,6 +12,7 @@ public abstract class FixedEcbSystem : FixedSystem
 
     protected override void OnCreate()
     {
+        base.OnCreate();
         _ecbSystem = World.GetOrCreateSystem<EndFixedStepSimulationEntityCommandBufferSystem>();
     }
 }
@@ -23,6 +24,19 @@ public abstract class PhysicsSystem : FixedSystem
 
     protected override void OnCreate()
     {
+        base.OnCreate();
+        _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
+    }
+}
+
+[UpdateAfter(typeof(EndFramePhysicsSystem))]
+public abstract class PhysicsEcbSystem : FixedEcbSystem
+{
+    protected BuildPhysicsWorld _buildPhysicsWorld;
+
+    protected override void OnCreate()
+    {
+        base.OnCreate();
         _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
     }
 }
@@ -31,8 +45,8 @@ public enum CollisionLayer : uint
 {
     Default = 1 << 0,
     NoCollisions = 1 << 1,
-    //Reserved = 1 << 2
-    //Reserved = 1 << 3
+    Query = 1 << 2,
+    //Reserved = 1 << 3,
     Ship = 1 << 4,
     Projectile = 1 << 5,
 }

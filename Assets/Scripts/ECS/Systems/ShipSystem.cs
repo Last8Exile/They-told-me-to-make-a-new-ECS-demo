@@ -27,7 +27,7 @@ public class ShipSystem : FixedSystem
                     {
                         if (CooldownComplete(ref ship, dt))
                         {
-                            MoveToRandomPosition(ref ship, ref randomData, FLY_AREA_EXTENTS, 5f);
+                            MoveToRandomPosition(ref ship, ref randomData, float2.zero, FLY_AREA_EXTENTS, 5f);
                             return;
                         }
                         engine.State_LinearPower = 0;
@@ -123,10 +123,10 @@ public class ShipSystem : FixedSystem
         ship.State_Coundown = length;
     }
 
-    private static void MoveToRandomPosition(ref Ship ship, ref RandomData randomData, float2 flyAreaExtents, float length = float.MaxValue)
+    private static void MoveToRandomPosition(ref Ship ship, ref RandomData randomData, float2 center, float2 flyAreaExtents, float length = float.MaxValue)
     {
         ship.ShipState = ShipState.MoveToPosition;
-        ship.State_TargetPosition = randomData.Random.NextFloat2(-flyAreaExtents, flyAreaExtents);
+        ship.State_TargetPosition = randomData.Random.NextFloat2(center - flyAreaExtents, center + flyAreaExtents);
         ship.State_Coundown = length;
     }
 }
