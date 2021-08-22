@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: FireInterval
-      value: 2.5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: MuzzleOffet.x
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: InitialVelocity
-      value: 40
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: ProjectilePrefab

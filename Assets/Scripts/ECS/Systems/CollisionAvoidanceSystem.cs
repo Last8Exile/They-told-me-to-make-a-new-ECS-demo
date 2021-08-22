@@ -7,7 +7,7 @@ using Unity.Transforms;
 
 public class CollisionAvoidanceSystem : PhysicsSystem
 {
-    private static readonly float _AVOIDANCE_POWER = 5;
+    private static readonly float _AVOIDANCE_POWER = 2;
     private static readonly float _AVOIDANCE_BASE = 2;
 
     private static readonly float _MAX_DISTANCE = 5;

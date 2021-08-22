@@ -20,9 +20,9 @@ public struct Engine : IComponentData
     [Range(-1, 1)]
     public float State_RotationPower;
 
-    public float GetClampedLinearEngage(float speed)
+    public float GetClampedLinearEngage(float speed, float invDt = 1f)
     {
-        return math.clamp(speed / LinerAcceleration, 0, 1);
+        return math.clamp(speed * invDt / LinerAcceleration, 0, 1);
     }
     public void SetLinearPowerClamped(float power)
     {
@@ -30,9 +30,9 @@ public struct Engine : IComponentData
     }
 
 
-    public float GetClampedRotationalEngage(float speed)
+    public float GetClampedRotationalEngage(float speed, float invDt = 1f)
     {
-        return math.clamp(speed / RotationSpeed, -1, 1);
+        return math.clamp(speed * invDt / RotationSpeed, -1, 1);
     }
     public void SetRotationPowerClamped(float power)
     {

@@ -1,18 +1,17 @@
-﻿using Unity.Assertions;
-using Unity.Entities;
+﻿using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-using ECB = Unity.Entities.EntityCommandBuffer;
 using ECBP = Unity.Entities.EntityCommandBuffer.ParallelWriter;
 
 public class ShipSystem : FixedEcbSystem
 {
     public static readonly float2 FLY_AREA_EXTENTS = new float2(50f, 30f);
-    public static readonly float STOP_SPEED_SQ = 1f;
+    public static readonly float STOP_SPEED_SQ = 0.25f;
     public static readonly float ENGAGE_ENGINE_ANGLE = math.PI * 0.25f;
-    public static readonly float REACH_DISTANCE_SQ = 25;
-    public static readonly float EQUAL_SPEED_SQ = 4;
+    public static readonly float FIRE_MAX_ANGLE = math.PI * 0.02f;
+    public static readonly float REACH_DISTANCE_SQ = 4;
+    public static readonly float EQUAL_SPEED_SQ = 1f;
     public static readonly float INV_PI = 1f / math.PI;
 
     protected override void OnUpdate()
@@ -40,41 +39,13 @@ public class ShipSystem : FixedEcbSystem
                 if (!orderState.Completed)
                     return;
 
-                var prevOrder = orderState.Order;
                 var args = new FSMArgs { Ecb = ecb, Entity = entity, Index = entityInQueryIndex };
 
-                //Stop previous order
+                var prevOrder = orderState.Order;
                 FromOrder(ref args, ref orderState);
+                ToOrder(ref args, ref orderState, ref randomData, prevOrder);
 
-                //Start new order
-                switch (prevOrder)
-                {
-                    case Order.None:
-                        ToIdle(ref args, ref orderState, 1f);
-                        break;
-                    case Order.Idle:
-                        var center = float2.zero;
-                        var position = randomData.Random.NextFloat2(center - FLY_AREA_EXTENTS, center + FLY_AREA_EXTENTS);
-                        ToFlyTo(ref args, ref orderState, position, 5f);
-                        break;
-                    case Order.Stop:
-                        ToIdle(ref args, ref orderState, 1f);
-                        break;
-                    case Order.FlyTo:
-                        ToStop(ref args, ref orderState, 2f);
-                        break;
-                    case Order.FireAt:
-                        ToIdle(ref args, ref orderState, 1f);
-                        break;
-                }
             }).ScheduleParallel();
-
-
-        /*
-        MoveToRandomPosition(ref ship, ref randomData, float2.zero, FLY_AREA_EXTENTS, 5f);
-        Idle(ref ship, 1f);
-        Stop(ref ship, 2f);
-        */
 
         _ecbSystem.AddJobHandleForProducer(Dependency);
     }
@@ -116,7 +87,23 @@ public class ShipSystem : FixedEcbSystem
             case Order.Idle: FromIdle(ref args, ref orderState); break;
             case Order.Stop: FromStop(ref args, ref orderState); break;
             case Order.FlyTo: FromFlyTo(ref args, ref orderState); break;
-            case Order.FireAt: /*Not Implemented*/ break;
+            case Order.FireAt: FromFireAt(ref args, ref orderState); break;
+        }
+    }
+
+    private static void ToOrder(ref FSMArgs args, ref OrderState orderState, ref RandomData randomData, Order order)
+    {
+        switch (order)
+        {
+            case Order.None: ToIdle(ref args, ref orderState, 0f); break;
+            case Order.Idle:
+                var center = float2.zero;
+                var position = randomData.Random.NextFloat2(center - FLY_AREA_EXTENTS, center + FLY_AREA_EXTENTS);
+                ToFlyTo(ref args, ref orderState, position, 10f);
+                break;
+            case Order.FlyTo: ToFindFireAt(ref args, ref orderState, 5f); break;
+            case Order.FireAt: ToStop(ref args, ref orderState, 5f); break;
+            case Order.Stop: ToIdle(ref args, ref orderState, 1f); break;
         }
     }
 
@@ -156,8 +143,8 @@ public class ShipSystem : FixedEcbSystem
     {
         CheckOrder(orderState.Order, Order.None);
         SetOrder(ref orderState, Order.FlyTo, timout);
-        args.Ecb.AddComponent(args.Index, args.Entity, new FlyToTarget { Entity = target });
         args.Ecb.AddComponent<FlyToOrder>(args.Index, args.Entity);
+        args.Ecb.AddComponent(args.Index, args.Entity, new FlyToTarget { Entity = target });
     }
     private static void FromFlyTo(ref FSMArgs args, ref OrderState orderState)
     {
@@ -167,30 +154,124 @@ public class ShipSystem : FixedEcbSystem
         args.Ecb.RemoveComponent<FlyToTarget>(args.Index, args.Entity);
     }
 
+    private static void ToFireAt(ref FSMArgs args, ref OrderState orderState, float2 position, float2 velocity, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.FireAt, timout);
+        args.Ecb.AddComponent(args.Index, args.Entity, new FireAtOrder { Position = position, Velocity = velocity });
+    }
+    private static void ToFireAt(ref FSMArgs args, ref OrderState orderState, Entity target, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.FireAt, timout);
+        args.Ecb.AddComponent<FireAtOrder>(args.Index, args.Entity);
+        args.Ecb.AddComponent(args.Index, args.Entity, new FireAtTarget { Entity = target });
+    }
+    private static void ToFindFireAt(ref FSMArgs args, ref OrderState orderState, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.FireAt, timout);
+        args.Ecb.AddComponent<FireAtOrder>(args.Index, args.Entity);
+        args.Ecb.AddComponent<FireAtTarget>(args.Index, args.Entity);
+        args.Ecb.AddComponent<FindTarget>(args.Index, args.Entity);
+    }
+    private static void FromFireAt(ref FSMArgs args, ref OrderState orderState)
+    {
+        CheckOrder(orderState.Order, Order.FireAt);
+        SetOrder(ref orderState, Order.None, 0);
+        args.Ecb.RemoveComponent<FireAtOrder>(args.Index, args.Entity);
+        args.Ecb.RemoveComponent<FireAtTarget>(args.Index, args.Entity);
+        args.Ecb.RemoveComponent<FindTarget>(args.Index, args.Entity);
+    }
+
     #endregion
 
     #region ProcessOrder
 
-    public static void Rotate(ref Engine engine, in Rotation rotation, float2 targetDirection, float engage = 1f)
+    public static void Rotate(ref Engine engine, in Rotation rotation, float2 targetDirection, float engage = 1f, float invDt = 1f)
     {
-        Rotate(ref engine, in rotation, out _, targetDirection, engage);
+        Rotate(ref engine, in rotation, out _, targetDirection, engage, invDt);
     }
-    public static void Rotate(ref Engine engine, in Rotation rotation, out float angleDiff, float2 targetDirection, float engage = 1f)
+    public static void Rotate(ref Engine engine, in Rotation rotation, out float angleDiff, float2 targetDirection, float engage = 1f, float invDt = 1f)
     {
         var currentDirection = MathExtensions.Direction2D(rotation.Value);
         angleDiff = MathExtensions.SignedAngle(currentDirection, targetDirection);
-        engine.SetRotationPowerClamped(engine.GetClampedRotationalEngage(angleDiff) * engage);
+        engine.SetRotationPowerClamped(engine.GetClampedRotationalEngage(angleDiff, invDt) * engage);
     }
 
-    public static void Thrust(ref Engine engine, float targetSpeed, float engage = 1f)
+    public static void Thrust(ref Engine engine, float targetSpeed, float engage = 1f, float invDt = 1f)
     {
-        var speedEngage = engine.GetClampedLinearEngage(targetSpeed);
+        var speedEngage = engine.GetClampedLinearEngage(targetSpeed, invDt);
         engine.SetLinearPowerClamped(speedEngage * engage);
     }
     public static float GetAngleEngage(float angleDiff)
     {
         return math.unlerp(ENGAGE_ENGINE_ANGLE, 0, math.abs(angleDiff));
     }
+
+    public struct Turret
+    {
+        public float2 Position;
+        public float2 Velocity;
+        public float MuzzleOffset;
+        public float ProjectileSpeed;
+    }
+
+    public struct Target
+    {
+        public float2 Position;
+        public float2 Velocity;
+    }
+
+    public struct AimResult
+    {
+        public float2 AimPosition;
+        public float FlyTime;
+    }
+
+    /// <summary>
+    /// Predicts position to shoot
+    /// </summary>
+    /// <param name="turret"></param>
+    /// <param name="target"></param>
+    /// <param name="aimResult">Result of a prediction</param>
+    /// <returns>Is prediction successful</returns>
+    public static bool Aim(Turret turret, Target target, out AimResult aimResult)
+    {
+        var posDiff = target.Position - turret.Position;
+        var speedDiff = target.Velocity - turret.Velocity;
+
+        var a = math.lengthsq(speedDiff) - turret.ProjectileSpeed*turret.ProjectileSpeed;
+        var b = 2 * (math.dot(posDiff, speedDiff) - turret.ProjectileSpeed * turret.MuzzleOffset);
+        var c = math.lengthsq(posDiff) - turret.MuzzleOffset*turret.MuzzleOffset;
+
+        var d = b*b - 4 * a * c;
+        if (d >= 0)
+        {
+            var dSquareRoot = math.sqrt(d);
+            var t1 = (-b - dSquareRoot) / (2 * a);
+            if (t1 >= 0)
+            {
+                aimResult = Predict(target.Position, speedDiff, t1);
+                return true;
+            }
+            var t2 = (-b + dSquareRoot) / (2 * a);
+            if (t2 >= 0)
+            {
+                aimResult = Predict(target.Position, speedDiff, t2);
+                return true;
+            }
+        }
+
+        aimResult = Predict(target.Position, float2.zero, 0f);
+        return false;
+    }
+
+    private static AimResult Predict(float2 targetPosition, float2 speedDiff, float time) => new AimResult()
+    {
+        AimPosition = targetPosition + speedDiff * time,
+        FlyTime = time
+    };
 
     #endregion
 }

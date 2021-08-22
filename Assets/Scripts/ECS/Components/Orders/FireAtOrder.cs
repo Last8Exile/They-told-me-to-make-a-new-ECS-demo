@@ -15,3 +15,9 @@ public struct FireAtTarget : IComponentData
 {
     public Entity Entity;
 }
+
+[Serializable]
+public struct FindTarget : IComponentData
+{
+
+}

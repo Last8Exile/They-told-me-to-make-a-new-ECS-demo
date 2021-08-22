@@ -308,7 +308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: State_Countdown
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocitySpread.x
@@ -548,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -580,7 +580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.y

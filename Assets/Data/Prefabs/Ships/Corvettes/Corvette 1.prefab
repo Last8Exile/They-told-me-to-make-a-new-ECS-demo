@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanInterrupt: 0
   BurstProjectileCount: 3
-  BurstInterval: 0.3
+  BurstInterval: 0.15
   State_BurstFiredProjectiles: 0
 --- !u!114 &3276063833879000199
 MonoBehaviour:
@@ -229,11 +229,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8097716117405779576, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: MaxHealth
-      value: 500
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: -8097716117405779576, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: State_Health
-      value: 500
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1135380541227472499, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: Sprite
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: FireInterval
-      value: 3
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1625570444191528664, guid: 576f239e5bd5a684f85fe22c63c75a6d, type: 3}
       propertyPath: MuzzleOffet.x

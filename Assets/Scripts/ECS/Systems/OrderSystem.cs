@@ -2,6 +2,8 @@
 using Unity.Mathematics;
 using Unity.Transforms;
 
+using UnityEditor;
+
 using static ShipSystem;
 
 public class OrderSystem : FixedEcbSystem
@@ -9,6 +11,7 @@ public class OrderSystem : FixedEcbSystem
     protected override void OnUpdate()
     {
         var dt = Time.DeltaTime;
+        var invDt = 1f / dt;
         var ecb = _ecbSystem.CreateCommandBuffer().AsParallelWriter();
         var translations = GetComponentDataFromEntity<Translation>(true);
         var velocities = GetComponentDataFromEntity<Velocity>(true);
@@ -41,8 +44,8 @@ public class OrderSystem : FixedEcbSystem
                 var speedSQ = math.lengthsq(velocity.LinearValue);
                 if (speedSQ <  STOP_SPEED_SQ)
                     orderState.Completed = true;
-                Rotate(ref engine, in rotation, out var angleDiff, -velocity.LinearValue);
-                Thrust(ref engine, math.sqrt(speedSQ), GetAngleEngage(angleDiff));
+                Rotate(ref engine, in rotation, out var angleDiff, -velocity.LinearValue, invDt: invDt);
+                Thrust(ref engine, math.sqrt(speedSQ), GetAngleEngage(angleDiff), invDt: invDt);
             }).ScheduleParallel();
 
         Entities
@@ -74,13 +77,13 @@ public class OrderSystem : FixedEcbSystem
                 var thrustLengthSQ = math.lengthsq(thrustVelocity);
                 if (thrustLengthSQ < EQUAL_SPEED_SQ)
                 {
-                    Rotate(ref engine, in rotation, targetDirection);
+                    Rotate(ref engine, in rotation, targetDirection, invDt: invDt);
                     engine.State_LinearPower = 0;
                 }
                 else
                 {
-                    Rotate(ref engine, in rotation, out var angleDiff, thrustVelocity);
-                    Thrust(ref engine, math.sqrt(thrustLengthSQ), GetAngleEngage(angleDiff));
+                    Rotate(ref engine, in rotation, out var angleDiff, thrustVelocity, invDt: invDt);
+                    Thrust(ref engine, math.sqrt(thrustLengthSQ), GetAngleEngage(angleDiff), invDt: invDt);
                 }
             }).ScheduleParallel();
 
@@ -88,6 +91,7 @@ public class OrderSystem : FixedEcbSystem
             .WithName("FireAtTarget")
             .WithReadOnly(translations)
             .WithReadOnly(velocities)
+            .WithNone<FindTarget>()
             .ForEach(
             (ref OrderState orderState, ref FireAtOrder fireAtOrder, in FireAtTarget fireAtTarget) =>
             {
@@ -103,10 +107,51 @@ public class OrderSystem : FixedEcbSystem
 
         Entities
             .WithName("FireAtOrder")
+            .WithNone<FindTarget>()
             .ForEach(
-            (ref OrderState orderState, in FireAtOrder fireAtOrder) =>
+            (ref OrderState orderState, ref Weapon weapon, ref Engine engine,
+            in FireAtOrder fireAtOrder, in Translation translation, in Rotation rotation, in Velocity velocity) =>
             {
-                
+                var turret = new Turret
+                {
+                    Position = translation.Value.xy,
+                    Velocity = velocity.LinearValue,
+                    MuzzleOffset = weapon.MuzzleOffet.x,
+                    ProjectileSpeed = weapon.InitialVelocity,
+                };
+                var target = new Target
+                {
+                    Position = fireAtOrder.Position,
+                    Velocity = fireAtOrder.Velocity,
+                };
+                var haveAim = Aim(turret, target, out var aimResult);
+                if (haveAim)
+                {
+                    var dir = aimResult.AimPosition - turret.Position;
+                    Rotate(ref engine, in rotation, out float angleDiff, dir, invDt: invDt);
+                    var normalizedDir = math.normalize(dir);
+                    var targetVelocity = normalizedDir * engine.CruiseSpeed + target.Velocity;
+                    var diffVelocity = targetVelocity - velocity.LinearValue;
+                    var engineControl = math.dot(diffVelocity, normalizedDir);
+                    Thrust(ref engine, engineControl, GetAngleEngage(angleDiff), invDt: invDt);
+                    weapon.State_AllowedToFire = math.abs(angleDiff) < FIRE_MAX_ANGLE;
+                }
+                else
+                {
+                    Rotate(ref engine, in rotation, out float angleDiff, target.Position - turret.Position, invDt: invDt);
+                    Thrust(ref engine, engine.CruiseSpeed, GetAngleEngage(angleDiff), invDt: invDt);
+                    weapon.State_AllowedToFire = math.abs(angleDiff) < FIRE_MAX_ANGLE;
+                }
+            }).ScheduleParallel();
+
+        Entities
+            .WithName("StopFire")
+            .WithAll<OrderState>()
+            .WithNone<FireAtOrder, FireAtTarget>()
+            .ForEach(
+            (ref Weapon weapon) =>
+            {
+                weapon.State_AllowedToFire = false;
             }).ScheduleParallel();
 
         _ecbSystem.AddJobHandleForProducer(Dependency);

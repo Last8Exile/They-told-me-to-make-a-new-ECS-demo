@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6472954342996448093}
   m_Layer: 0
-  m_Name: Spawners Single
+  m_Name: Spawners Single Duel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,6 @@ Transform:
   - {fileID: 5621750856464676458}
   - {fileID: 8998317047012518247}
   - {fileID: 5621750856827625470}
-  - {fileID: 5621750856022203395}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,7 +67,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -80,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
@@ -170,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -182,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityMax.x
@@ -275,152 +274,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
   m_PrefabInstance: {fileID: 6472954344437618978}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6472954344705645279
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6472954342996448093}
-    m_Modifications:
-    - target: {fileID: 395443533513076203, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 395443533513076203, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 395443533513076203, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511002, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_Name
-      value: Spawner Enemy Corvette 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: Delay
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: Prefab
-      value: 
-      objectReference: {fileID: 4597646671800081296, guid: 3bec57b31e0faab4da20a2cbe0441d99, type: 3}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: BurstSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: SpawnCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: SpawnArea.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: SpawnArea.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: BurstInterval
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocityMax.x
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocityMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocityMin.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocityMin.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocityBase.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: State_Countdown
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocitySpread.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: VelocitySpread.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 21.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -39.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511006, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511006, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716141045331511006, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8094728106700662257, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-      propertyPath: Id
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
---- !u!4 &5621750856022203395 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1716141045331511004, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
-  m_PrefabInstance: {fileID: 6472954344705645279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6472954344783278262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -454,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -466,7 +319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityBase.x
@@ -556,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnCount
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: SpawnArea.x
@@ -568,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: BurstInterval
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1716141045331511003, guid: 153c254f983290b458edc1f1ed9d1612, type: 3}
       propertyPath: VelocityMax.x
