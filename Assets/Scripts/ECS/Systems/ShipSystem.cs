@@ -1,8 +1,12 @@
-﻿using Unity.Entities;
+﻿using Unity.Assertions;
+using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-public class ShipSystem : FixedSystem
+using ECB = Unity.Entities.EntityCommandBuffer;
+using ECBP = Unity.Entities.EntityCommandBuffer.ParallelWriter;
+
+public class ShipSystem : FixedEcbSystem
 {
     public static readonly float2 FLY_AREA_EXTENTS = new float2(50f, 30f);
     public static readonly float STOP_SPEED_SQ = 1f;
@@ -14,119 +18,179 @@ public class ShipSystem : FixedSystem
     protected override void OnUpdate()
     {
         var dt = Time.DeltaTime;
+        var ecb = _ecbSystem.CreateCommandBuffer().AsParallelWriter();
 
-        Entities.ForEach(
-            (Entity entity, int entityInQueryIndex,
-            ref Ship ship, ref RandomData randomData, ref Engine engine,
-            in Translation translation, in Rotation rotation, in Velocity velocity) =>
+        Entities
+            .WithName("ShipAIFix")
+            .WithAll<Ship>()
+            .WithNone<OrderState>()
+            .ForEach(
+            (Entity entity, int entityInQueryIndex) =>
             {
+                ecb.AddComponent<OrderState>(entityInQueryIndex, entity);
+            }).ScheduleParallel();
 
-                switch (ship.ShipState)
+        Entities
+            .WithName("ShipAI")
+            .WithAll<Ship>()
+            .ForEach(
+            (Entity entity, int entityInQueryIndex,
+            ref OrderState orderState, ref RandomData randomData) =>
+            {
+                if (!orderState.Completed)
+                    return;
+
+                var prevOrder = orderState.Order;
+                var args = new FSMArgs { Ecb = ecb, Entity = entity, Index = entityInQueryIndex };
+
+                //Stop previous order
+                FromOrder(ref args, ref orderState);
+
+                //Start new order
+                switch (prevOrder)
                 {
-                    case ShipState.Idle:
-                    {
-                        if (CooldownComplete(ref ship, dt))
-                        {
-                            MoveToRandomPosition(ref ship, ref randomData, float2.zero, FLY_AREA_EXTENTS, 5f);
-                            return;
-                        }
-                        engine.State_LinearPower = 0;
-                        engine.State_RotationPower = 0;
+                    case Order.None:
+                        ToIdle(ref args, ref orderState, 1f);
                         break;
-                    }
-                    case ShipState.Stop:
-                    {
-                        if (CooldownComplete(ref ship, dt))
-                        {
-                            Idle(ref ship, 1f);
-                            return;
-                        }
-                        var speedSQ = math.lengthsq(velocity.LinearValue);
-                        if (speedSQ < STOP_SPEED_SQ)
-                        {
-                            Idle(ref ship, 1f);
-                            return;
-                        }
-                        Rotate(ref engine, in rotation, out var angleDiff, -velocity.LinearValue);
-                        Thrust(ref engine, math.sqrt(speedSQ), GetAngleEngage(angleDiff));
+                    case Order.Idle:
+                        var center = float2.zero;
+                        var position = randomData.Random.NextFloat2(center - FLY_AREA_EXTENTS, center + FLY_AREA_EXTENTS);
+                        ToFlyTo(ref args, ref orderState, position, 5f);
                         break;
-                    }
-                    case ShipState.MoveToPosition:
-                    {
-                        if (CooldownComplete(ref ship, dt))
-                        {
-                            Stop(ref ship, 2f);
-                            return;
-                        }
-                        var targetDirection = ship.State_TargetPosition - translation.Value.xy;
-                        var distanceSQ = math.lengthsq(targetDirection);
-                        if (distanceSQ < REACH_DISTANCE_SQ)
-                        {
-                            Stop(ref ship, 2f);
-                            return;
-                        }
-                        var targetVelocity = math.normalize(targetDirection) * ship.CruiseSpeed;
-                        var thrustVelocity = targetVelocity - velocity.LinearValue;
-                        var thrustLengthSQ = math.lengthsq(thrustVelocity);
-                        if (thrustLengthSQ < EQUAL_SPEED_SQ)
-                        {
-                            Rotate(ref engine, in rotation, targetDirection);
-                            engine.State_LinearPower = 0;
-                        }
-                        else
-                        {
-                            Rotate(ref engine, in rotation, out var angleDiff, thrustVelocity);
-                            Thrust(ref engine, math.sqrt(thrustLengthSQ), GetAngleEngage(angleDiff));
-                        }
+                    case Order.Stop:
+                        ToIdle(ref args, ref orderState, 1f);
                         break;
-                    }
+                    case Order.FlyTo:
+                        ToStop(ref args, ref orderState, 2f);
+                        break;
+                    case Order.FireAt:
+                        ToIdle(ref args, ref orderState, 1f);
+                        break;
                 }
             }).ScheduleParallel();
+
+
+        /*
+        MoveToRandomPosition(ref ship, ref randomData, float2.zero, FLY_AREA_EXTENTS, 5f);
+        Idle(ref ship, 1f);
+        Stop(ref ship, 2f);
+        */
+
+        _ecbSystem.AddJobHandleForProducer(Dependency);
     }
 
-    private static void Rotate(ref Engine engine, in Rotation rotation, float2 targetDirection, float engage = 1f)
+    #region OrderFSM
+
+    public ref struct FSMArgs
+    {
+        public Entity Entity;
+        public int Index;
+        public ECBP Ecb;
+
+        public FSMArgs(Entity entity, int index, ECBP ecb)
+        {
+            Entity = entity;
+            Index = index;
+            Ecb = ecb;
+        }
+    }
+
+    private static void CheckOrder(Order currentOrder, Order expectedOrder)
+    {
+        if (currentOrder != expectedOrder)
+            throw new System.Exception($"Wrong order. Current {currentOrder}, expected {expectedOrder}.");
+    }
+
+    private static void SetOrder(ref OrderState orderState, Order order, float timeout)
+    {
+        orderState.Completed = false;
+        orderState.Order = order;
+        orderState.Timeout = timeout;
+    }
+
+    private static void FromOrder(ref FSMArgs args, ref OrderState orderState)
+    {
+        switch (orderState.Order)
+        {
+            case Order.None: /*Nothing to do*/ break;
+            case Order.Idle: FromIdle(ref args, ref orderState); break;
+            case Order.Stop: FromStop(ref args, ref orderState); break;
+            case Order.FlyTo: FromFlyTo(ref args, ref orderState); break;
+            case Order.FireAt: /*Not Implemented*/ break;
+        }
+    }
+
+    private static void ToIdle(ref FSMArgs args, ref OrderState orderState, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.Idle, timout);
+        args.Ecb.AddComponent<IdleOrder>(args.Index, args.Entity);
+    }
+    private static void FromIdle(ref FSMArgs args, ref OrderState orderState)
+    {
+        CheckOrder(orderState.Order, Order.Idle);
+        SetOrder(ref orderState, Order.None, 0);
+        args.Ecb.RemoveComponent<IdleOrder>(args.Index, args.Entity);
+    }
+
+    private static void ToStop(ref FSMArgs args, ref OrderState orderState, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.Stop, timout);
+        args.Ecb.AddComponent<StopOrder>(args.Index, args.Entity);
+    }
+    private static void FromStop(ref FSMArgs args, ref OrderState orderState)
+    {
+        CheckOrder(orderState.Order, Order.Stop);
+        SetOrder(ref orderState, Order.None, 0);
+        args.Ecb.RemoveComponent<StopOrder>(args.Index, args.Entity);
+    }
+
+    private static void ToFlyTo(ref FSMArgs args, ref OrderState orderState, float2 position, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.FlyTo, timout);
+        args.Ecb.AddComponent(args.Index, args.Entity, new FlyToOrder { Position = position });
+    }
+    private static void ToFlyTo(ref FSMArgs args, ref OrderState orderState, Entity target, float timout = float.PositiveInfinity)
+    {
+        CheckOrder(orderState.Order, Order.None);
+        SetOrder(ref orderState, Order.FlyTo, timout);
+        args.Ecb.AddComponent(args.Index, args.Entity, new FlyToTarget { Entity = target });
+        args.Ecb.AddComponent<FlyToOrder>(args.Index, args.Entity);
+    }
+    private static void FromFlyTo(ref FSMArgs args, ref OrderState orderState)
+    {
+        CheckOrder(orderState.Order, Order.FlyTo);
+        SetOrder(ref orderState, Order.None, 0);
+        args.Ecb.RemoveComponent<FlyToOrder>(args.Index, args.Entity);
+        args.Ecb.RemoveComponent<FlyToTarget>(args.Index, args.Entity);
+    }
+
+    #endregion
+
+    #region ProcessOrder
+
+    public static void Rotate(ref Engine engine, in Rotation rotation, float2 targetDirection, float engage = 1f)
     {
         Rotate(ref engine, in rotation, out _, targetDirection, engage);
     }
-    private static void Rotate(ref Engine engine, in Rotation rotation, out float angleDiff, float2 targetDirection, float engage = 1f)
+    public static void Rotate(ref Engine engine, in Rotation rotation, out float angleDiff, float2 targetDirection, float engage = 1f)
     {
         var currentDirection = MathExtensions.Direction2D(rotation.Value);
         angleDiff = MathExtensions.SignedAngle(currentDirection, targetDirection);
         engine.SetRotationPowerClamped(engine.GetClampedRotationalEngage(angleDiff) * engage);
     }
 
-    private static void Thrust(ref Engine engine, float targetSpeed, float engage = 1f)
+    public static void Thrust(ref Engine engine, float targetSpeed, float engage = 1f)
     {
         var speedEngage = engine.GetClampedLinearEngage(targetSpeed);
         engine.SetLinearPowerClamped(speedEngage * engage);
     }
-    private static float GetAngleEngage(float angleDiff)
+    public static float GetAngleEngage(float angleDiff)
     {
         return math.unlerp(ENGAGE_ENGINE_ANGLE, 0, math.abs(angleDiff));
     }
 
-    private static bool CooldownComplete(ref Ship ship, float dt)
-    {
-        ship.State_Coundown -= dt;
-        return ship.State_Coundown <= 0;
-    }
-
-    private static void Idle(ref Ship ship, float length = 1)
-    {
-        ship.ShipState = ShipState.Idle;
-        ship.State_Coundown = length;
-    }
-
-    private static void Stop(ref Ship ship, float length = float.MaxValue)
-    {
-        ship.ShipState = ShipState.Stop;
-        ship.State_Coundown = length;
-    }
-
-    private static void MoveToRandomPosition(ref Ship ship, ref RandomData randomData, float2 center, float2 flyAreaExtents, float length = float.MaxValue)
-    {
-        ship.ShipState = ShipState.MoveToPosition;
-        ship.State_TargetPosition = randomData.Random.NextFloat2(center - flyAreaExtents, center + flyAreaExtents);
-        ship.State_Coundown = length;
-    }
+    #endregion
 }

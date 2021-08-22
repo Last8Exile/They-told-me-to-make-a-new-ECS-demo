@@ -14,20 +14,24 @@ public class DamageSystem : PhysicsEcbSystem
         var collisionWorld = _buildPhysicsWorld.PhysicsWorld.CollisionWorld;
         var projectiles = GetComponentDataFromEntity<Projectile>(true);
         var teams = GetComponentDataFromEntity<Team>(true);
+        var colliders = GetComponentDataFromEntity<PhysicsCollider>(true);
 
         Entities
             .WithReadOnly(collisionWorld)
             .WithReadOnly(projectiles)
             .WithReadOnly(teams)
-            .WithAll<Ship>()
+            .WithReadOnly(colliders)
             .ForEach(
             (Entity entity, int entityInQueryIndex,
             ref Health health,
-            in Translation translation, in Rotation rotation, in PhysicsCollider collider, in Team team) =>
+            in Translation translation, in Rotation rotation, in Team team, in DamageProxy damageProxy) =>
             {
+                if (!colliders.HasComponent(damageProxy.EntityWithPhysicsCollider))
+                    return;
+
                 var input = new ColliderCastInput
                 {
-                    Collider = collider.ColliderPtr,
+                    Collider = colliders[damageProxy.EntityWithPhysicsCollider].ColliderPtr,
                     Start = translation.Value,
                     End = translation.Value,
                     Orientation = rotation.Value,
@@ -40,7 +44,7 @@ public class DamageSystem : PhysicsEcbSystem
                     {
                         var hit = hits[i];
                         var hitEntity = hit.Entity;
-                        if (entity == hitEntity)
+                        if (damageProxy.EntityWithPhysicsCollider == hitEntity)
                             continue;
                         if (!projectiles.HasComponent(hitEntity))
                             continue;

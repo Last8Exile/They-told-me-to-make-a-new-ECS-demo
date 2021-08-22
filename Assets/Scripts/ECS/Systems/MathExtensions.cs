@@ -9,13 +9,13 @@ public static class MathExtensions
             return 0f;
 
         float num2 = math.clamp(math.dot(from, to) / num, -1f, 1f);
-        return math.acos(num2) * 57.29578f;
+        return math.acos(num2);
     }
 
     public static float SignedAngle(float2 from, float2 to)
     {
         float num = Angle(from, to);
-        float num2 = math.sign(from.x * to.y - from.y * to.x);
+        float num2 = from.x * to.y - from.y * to.x < 0 ? -1f : 1f;
         return num * num2;
     }
 

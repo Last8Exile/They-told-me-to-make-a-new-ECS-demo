@@ -12,6 +12,8 @@ public struct Engine : IComponentData
     public float LinerAcceleration;
     public float RotationSpeed;
 
+    public float CruiseSpeed;
+
     [Header("State")]
     [Range(0, 1)]
     public float State_LinearPower;

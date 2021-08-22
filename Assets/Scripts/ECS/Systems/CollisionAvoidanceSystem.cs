@@ -7,60 +7,52 @@ using Unity.Transforms;
 
 public class CollisionAvoidanceSystem : PhysicsSystem
 {
-    private static readonly float _AVOIDANCE_POWER = 20;
+    private static readonly float _AVOIDANCE_POWER = 5;
     private static readonly float _AVOIDANCE_BASE = 2;
-    private static readonly float _MIN_DISTANCE = 1f;
 
-    private static readonly float _MAX_DISTANCE = 10;
+    private static readonly float _MAX_DISTANCE = 5;
     private static readonly int _MAX_HITS = 8;
-    private static readonly CollisionFilter _FILTER = new CollisionFilter
-    {
-        BelongsTo = (uint)CollisionLayer.Query,
-        CollidesWith = (uint)CollisionLayer.Ship,
-    };
 
     unsafe protected override void OnUpdate()
     {
         var dt = Time.DeltaTime;
         var collisionWorld = _buildPhysicsWorld.PhysicsWorld.CollisionWorld;
-        //var ships = GetComponentDataFromEntity<Ship>(true);
+        var colliders = GetComponentDataFromEntity<PhysicsCollider>(true);
 
         Entities
-            //.WithReadOnly(ships)
+            .WithName("AvoidCollisions")
             .WithReadOnly(collisionWorld)
-            .WithAll<Ship>()
+            .WithReadOnly(colliders)
             .ForEach(
-            (Entity entity, int entityInQueryIndex, 
-            ref Velocity velocity,
-            in Translation translation, in Rotation rotation, in PhysicsCollider collider) =>
+            (ref Velocity velocity,
+            in Translation translation, in Rotation rotation, in CollisionAvoidanceProxy collisionAvoidance) =>
             {
-                var input = new PointDistanceInput
-                {
-                    Position = translation.Value,
-                    MaxDistance = _MAX_DISTANCE,
-                    Filter = _FILTER,
-                };
-                var hits = new NativeList<DistanceHit>(Allocator.Temp);
+                if (!colliders.HasComponent(collisionAvoidance.EntityWithPhysicsCollider))
+                    return;
 
-                if (collisionWorld.CalculateDistance(input, ref hits))
+                var input = new ColliderDistanceInput
+                {
+                    Collider = colliders[collisionAvoidance.EntityWithPhysicsCollider].ColliderPtr,
+                    Transform = new RigidTransform { pos = translation.Value, rot = rotation.Value },
+                    MaxDistance = _MAX_DISTANCE,
+                };
+
+                var hits = new NativeList<DistanceHit>(_MAX_HITS, Allocator.Temp);
+                var collector = new MaxHitsCollector<DistanceHit>(_MAX_DISTANCE, _MAX_HITS, ref hits);
+
+                if (collisionWorld.CalculateDistance(input, ref collector))
                 {
                     var maxHits = math.min(_MAX_HITS, hits.Length);
-                    //var maxHits = hits.Length;
                     for (int i = 0; i < hits.Length; i++)
                     {
                         var hit = hits[i];
-                        var hitEntity = hit.Entity;
-                        if (entity != hitEntity /*&& ships.HasComponent(hitEntity)*/)
+                        if (collisionAvoidance.EntityWithPhysicsCollider != hit.Entity)
                         {
                             var diff = translation.Value.xy - hit.Position.xy;
-                            var len = math.lengthsq(diff);
-                            if (len > _MIN_DISTANCE*_MIN_DISTANCE)
-                            {
-                                var direction = math.normalize(diff);
-                                var power = _AVOIDANCE_POWER * math.pow(_AVOIDANCE_BASE, math.min(0, -(hit.Distance-_MIN_DISTANCE)));
-                                //var power = _AVOIDANCE_POWER * math.pow(_AVOIDANCE_BASE, -hit.Distance);
-                                velocity.LinearValue += direction * power;
-                            }
+                            var direction = math.normalize(diff);
+                            var power = _AVOIDANCE_POWER * math.pow(_AVOIDANCE_BASE, -hit.Distance);
+                            var force = direction * power;
+                            velocity.LinearValue += force;
                         }
                     }
                 }
@@ -68,5 +60,29 @@ public class CollisionAvoidanceSystem : PhysicsSystem
             }).ScheduleParallel();
 
         _buildPhysicsWorld.AddInputDependencyToComplete(Dependency);
+    }
+
+    public struct MaxHitsCollector<T> : ICollector<T> where T : struct, IQueryResult
+    {
+        public NativeList<T> Hits;
+
+        public float MaxFraction { get; }
+        public int MaxHits { get; }
+
+        public int NumHits => Hits.Length;
+        public bool EarlyOutOnFirstHit => false;
+
+        public MaxHitsCollector(float maxDistance, int maxHits, ref NativeList<T> hits)
+        {
+            Hits = hits;
+            MaxFraction = maxDistance;
+            MaxHits = maxHits;
+        }
+
+        public bool AddHit(T hit)
+        {
+            Hits.Add(hit);
+            return NumHits < MaxHits;
+        }
     }
 }
